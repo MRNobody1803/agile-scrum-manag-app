@@ -1,5 +1,8 @@
 package com.example.demo_sprinboot.productBacklog;
 
+import com.example.demo_sprinboot.entities.ProductBacklog;
+import com.example.demo_sprinboot.repository.ProductBacklogRepository;
+import com.example.demo_sprinboot.services.ProductBacklogService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
