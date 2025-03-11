@@ -1,8 +1,6 @@
 package com.example.demo_sprinboot.entities;
 
 
-import com.example.demo_sprinboot.entities.SprintBacklog;
-import com.example.demo_sprinboot.entities.UserStory;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

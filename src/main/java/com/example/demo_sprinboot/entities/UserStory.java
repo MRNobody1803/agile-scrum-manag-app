@@ -1,10 +1,5 @@
 package com.example.demo_sprinboot.entities;
 
-import com.example.demo_sprinboot.entities.Epic;
-import com.example.demo_sprinboot.entities.ProductBacklog;
-import com.example.demo_sprinboot.entities.SprintBacklog;
-import com.example.demo_sprinboot.entities.Status;
-import com.example.demo_sprinboot.entities.Task;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

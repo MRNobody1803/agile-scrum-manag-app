@@ -1,7 +1,5 @@
 package com.example.demo_sprinboot.entities;
 
-import com.example.demo_sprinboot.entities.ProductBacklog;
-import com.example.demo_sprinboot.entities.UserStory;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

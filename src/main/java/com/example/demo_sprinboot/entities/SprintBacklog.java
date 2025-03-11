@@ -1,8 +1,5 @@
 package com.example.demo_sprinboot.entities;
 
-import com.example.demo_sprinboot.entities.Sprint;
-import com.example.demo_sprinboot.entities.Task;
-import com.example.demo_sprinboot.entities.UserStory;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

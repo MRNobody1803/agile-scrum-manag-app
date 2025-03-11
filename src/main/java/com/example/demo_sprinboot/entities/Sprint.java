@@ -1,8 +1,5 @@
 package com.example.demo_sprinboot.entities;
 
-
-import com.example.demo_sprinboot.entities.SprintBacklog;
-import com.example.demo_sprinboot.entities.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
