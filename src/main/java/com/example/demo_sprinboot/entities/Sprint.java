@@ -10,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "sprints")
+@Builder
 public class Sprint {
 
     @Id

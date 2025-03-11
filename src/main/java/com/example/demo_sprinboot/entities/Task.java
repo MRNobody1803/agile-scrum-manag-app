@@ -2,6 +2,8 @@ package com.example.demo_sprinboot.entities;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "tasks")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Task {
 
     @Id
@@ -23,7 +27,5 @@ public class Task {
     @JoinColumn(name = "user_story_id")
     private UserStory userStory;
 
-    @ManyToOne
-    @JoinColumn(name = "sprint_backlog_id")
-    private SprintBacklog sprintBacklog;
+
 }
