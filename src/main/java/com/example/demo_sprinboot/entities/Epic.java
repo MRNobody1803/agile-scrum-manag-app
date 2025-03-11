@@ -5,10 +5,7 @@ import com.example.demo_sprinboot.entities.UserStory;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.util.List;
@@ -17,7 +14,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor @Accessors @Getter
 @NoArgsConstructor
-
+@Builder
+@Table(name = "epics")
 public class Epic {
 
     @Id

@@ -3,15 +3,19 @@ package com.example.demo_sprinboot.entities;
 
 import com.example.demo_sprinboot.entities.UserStory;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "acceptance_criteria")
+@Table(name = "acceptance_criterias")
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class AcceptanceCriteria {
 
     @Id

@@ -4,6 +4,7 @@ import com.example.demo_sprinboot.entities.Sprint;
 import com.example.demo_sprinboot.entities.Task;
 import com.example.demo_sprinboot.entities.UserStory;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Table(name = "sprint_backlogs")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class SprintBacklog {
 
     @Id
@@ -23,9 +25,6 @@ public class SprintBacklog {
 
     @OneToMany(mappedBy = "sprintBacklog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserStory> userStories;
-
-    @OneToMany(mappedBy = "sprintBacklog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Task> tasks;
 
     @OneToOne(mappedBy = "sprintBacklog", cascade = CascadeType.ALL)
     private Sprint sprint;

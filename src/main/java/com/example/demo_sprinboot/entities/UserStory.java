@@ -6,6 +6,7 @@ import com.example.demo_sprinboot.entities.SprintBacklog;
 import com.example.demo_sprinboot.entities.Status;
 import com.example.demo_sprinboot.entities.Task;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "user_stories")
 @Data
 @NoArgsConstructor
+
 public class UserStory {
 
     @Id
@@ -46,13 +48,16 @@ public class UserStory {
     @JoinColumn(name = "product_backlog_id") // Changed to singular form
     private ProductBacklog productBacklog;
 
+
     public UserStory(String title) {
         this.title = title;
     }
 
+    @Builder
     public UserStory(Long id, String title, ProductBacklog productBacklog) {
         this.id = id;
         this.title = title;
         this.productBacklog = productBacklog;
     }
+
 }
