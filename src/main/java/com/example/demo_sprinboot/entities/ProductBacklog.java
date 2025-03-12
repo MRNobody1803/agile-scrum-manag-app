@@ -24,7 +24,7 @@ public class ProductBacklog {
 
     private String description;
 
-    private String priority ;              // HIGHT, MEDIUM, LOW
+    private Priority priority ;              // HIGHT, MEDIUM, LOW
 
     @Enumerated (EnumType.STRING)
     private Status status ;                 // TO DO , IN PROGRESS , DONE
