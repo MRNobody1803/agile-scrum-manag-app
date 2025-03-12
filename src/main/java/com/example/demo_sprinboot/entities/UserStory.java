@@ -1,6 +1,7 @@
 package com.example.demo_sprinboot.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,8 @@ import java.util.List;
 @Table(name = "user_stories")
 @Data
 @NoArgsConstructor
-
+@AllArgsConstructor
+@Builder
 public class UserStory {
 
     @Id
@@ -32,10 +34,6 @@ public class UserStory {
     @JoinColumn(name = "epic_id") // Changed to singular form
     private Epic epic;
 
-    @ManyToOne
-    @JoinColumn(name = "sprint_backlog_id") // Changed to singular form
-    private SprintBacklog sprintBacklog;
-
     @OneToMany(mappedBy = "userStory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Task> tasks;
 
@@ -43,16 +41,5 @@ public class UserStory {
     @JoinColumn(name = "product_backlog_id") // Changed to singular form
     private ProductBacklog productBacklog;
 
-
-    public UserStory(String title) {
-        this.title = title;
-    }
-
-    @Builder
-    public UserStory(Long id, String title, ProductBacklog productBacklog) {
-        this.id = id;
-        this.title = title;
-        this.productBacklog = productBacklog;
-    }
 
 }

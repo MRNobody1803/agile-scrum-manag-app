@@ -1,4 +1,7 @@
 package com.example.demo_sprinboot.repository;
 
-public interface SprintRepository {
+import com.example.demo_sprinboot.entities.Sprint;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SprintRepository extends JpaRepository<Sprint, Long> {
 }
