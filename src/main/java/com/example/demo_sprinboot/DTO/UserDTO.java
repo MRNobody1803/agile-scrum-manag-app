@@ -23,10 +23,6 @@ public class UserDTO {
     @Email(message = "Email should be valid")
     private String email;
 
-    @NotBlank(message = "Password cannot be blank")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    private String password;
-
     @NotNull(message = "Role cannot be null")
     private RoleType role;
 }
