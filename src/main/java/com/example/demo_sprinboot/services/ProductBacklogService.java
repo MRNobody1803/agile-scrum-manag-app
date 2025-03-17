@@ -1,14 +1,14 @@
 package com.example.demo_sprinboot.services;
 
 
-import com.example.demo_sprinboot.entities.ProductBacklog;
+import com.example.demo_sprinboot.DTO.ProductBacklogDTO;
 
 import java.util.List;
 
 public interface ProductBacklogService {
-    List<ProductBacklog> getAllProductBacklogs();
-    ProductBacklog getProductBacklogById(long id);
-    ProductBacklog createProductBacklog(ProductBacklog productBacklog);
-    ProductBacklog updateProductBacklog(long id, ProductBacklog productBacklog);
-    void deleteProductBacklogById(long id);
+    List<ProductBacklogDTO> getAllProductBacklogs();
+    ProductBacklogDTO getProductBacklogById(long id);
+    ProductBacklogDTO createProductBacklog(ProductBacklogDTO productBacklog);
+    ProductBacklogDTO updateProductBacklog(long id, ProductBacklogDTO productBacklog);
+    boolean deleteProductBacklogById(long id);
 }

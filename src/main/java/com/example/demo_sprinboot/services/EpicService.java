@@ -6,7 +6,7 @@ import java.util.List;
 public interface EpicService {
     EpicDTO createEpic(EpicDTO epicDTO);
     EpicDTO updateEpic(Long id, EpicDTO epicDTO);
-    void deleteEpic(Long id);
+    boolean deleteEpic(Long id);
     EpicDTO getEpicById(Long id);
     List<EpicDTO> getAllEpics();
 }
