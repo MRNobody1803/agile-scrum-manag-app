@@ -1,6 +1,5 @@
 package com.example.demo_sprinboot.entities;
 
-import com.example.demo_sprinboot.entities.RoleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -24,18 +24,4 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
-
-
-
-    public void register() {
-        // registration logic
-    }
-
-    public void login() {
-        // login logic
-    }
-
-    public void logout() {
-        // logout logic
-    }
 }

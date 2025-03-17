@@ -39,4 +39,5 @@ public class UserStoryDTO {
 
     private Long epicId;
     private Long productBacklogId;
+    private Long sprintBacklogId;
 }

@@ -3,6 +3,7 @@ package com.example.demo_sprinboot.services;
 
 import com.example.demo_sprinboot.entities.Task;
 import com.example.demo_sprinboot.entities.UserStory;
+import com.example.demo_sprinboot.mappers.UserStoryMapper;
 import com.example.demo_sprinboot.repository.UserStoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.Optional;
 public class UserStoryServiceImpl implements UserStoryService {
 
     private final UserStoryRepository userStoryRepository;
+    private final UserStoryMapper userStoryMapper = UserStoryMapper.INSTANCE;
 
     @Autowired
     public UserStoryServiceImpl(UserStoryRepository userStoryRepository) {

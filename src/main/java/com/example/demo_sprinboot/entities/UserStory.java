@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -40,6 +41,10 @@ public class UserStory {
     @ManyToOne
     @JoinColumn(name = "product_backlog_id") // Changed to singular form
     private ProductBacklog productBacklog;
+
+    @ManyToOne
+    @JoinColumn(name = "sprint_backlog_id")
+    private SprintBacklog sprintBacklog;
 
 
 }
