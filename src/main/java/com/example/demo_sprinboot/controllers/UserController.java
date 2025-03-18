@@ -20,9 +20,9 @@ public class UserController {
     public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
         try {
             UserDTO registeredUser = userService.registerUser(userDTO);
-            return ResponseEntity.status(201).body(registeredUser);  // Retourner un 201 avec le DTO de l'utilisateur enregistré
+            return ResponseEntity.status(201).body(registeredUser);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(400).body(null);  // Retourner un 400 en cas d'erreur (par exemple, utilisateur déjà existant)
+            return ResponseEntity.status(400).body(null);
         }
     }
 
@@ -31,12 +31,12 @@ public class UserController {
         try {
             Optional<UserDTO> loggedUser = userService.loginUser(username, password);
             if (loggedUser.isPresent()) {
-                return ResponseEntity.status(200).body(loggedUser.get());  // Connexion réussie, retourner l'utilisateur
+                return ResponseEntity.status(200).body(loggedUser.get());
             } else {
-                return ResponseEntity.status(401).build();  // Non autorisé si l'utilisateur ou le mot de passe est incorrect
+                return ResponseEntity.status(401).build();
             }
         } catch (RuntimeException e) {
-            return ResponseEntity.status(500).body(null);  // Erreur interne du serveur en cas d'exception
+            return ResponseEntity.status(500).body(null);
         }
     }
 

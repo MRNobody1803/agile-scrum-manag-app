@@ -20,11 +20,12 @@ public class SprintBacklog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nom;
+    private String name;
 
     @OneToMany(mappedBy = "sprintBacklog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserStory> userStories;
 
     @OneToOne(mappedBy = "sprintBacklog", cascade = CascadeType.ALL)
     private Sprint sprint;
+
 }

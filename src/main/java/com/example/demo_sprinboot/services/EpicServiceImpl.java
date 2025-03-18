@@ -7,6 +7,7 @@ import com.example.demo_sprinboot.exceptions.ResourceNotFoundException;
 import com.example.demo_sprinboot.mappers.EpicMapper;
 import com.example.demo_sprinboot.repository.ProductBacklogRepository;
 import com.example.demo_sprinboot.repository.EpicRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,13 @@ public class EpicServiceImpl implements EpicService {
 
     private final EpicRepository epicRepository;
     private final ProductBacklogRepository productBacklogRepository;
-    private final EpicMapper epicMapper = EpicMapper.INSTANCE;
+    private final EpicMapper epicMapper ;
 
-    public EpicServiceImpl(EpicRepository epicRepository, ProductBacklogRepository productBacklogRepository) {
+    @Autowired
+    public EpicServiceImpl(EpicRepository epicRepository, ProductBacklogRepository productBacklogRepository , EpicMapper epicMapper) {
         this.epicRepository = epicRepository;
         this.productBacklogRepository = productBacklogRepository;
+        this.epicMapper = epicMapper;
     }
 
     @Override
