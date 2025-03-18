@@ -4,7 +4,7 @@ import com.example.demo_sprinboot.DTO.AcceptanceCriteriaDTO;
 import com.example.demo_sprinboot.entities.AcceptanceCriteria;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface AcceptanceCriteriaMapper {
     AcceptanceCriteriaDTO toDto(AcceptanceCriteria acceptanceCriteria);
     AcceptanceCriteria toEntity(AcceptanceCriteriaDTO acceptanceCriteriaDTO);
