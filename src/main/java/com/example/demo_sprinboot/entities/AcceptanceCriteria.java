@@ -26,8 +26,19 @@ public class AcceptanceCriteria {
 
     private String description;
 
+    @Column(name = "validated")
+    private boolean isValid ;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 
     @PrePersist
     protected void onCreate() {

@@ -20,5 +20,11 @@ public class AcceptanceCriteriaDTO {
     @NotBlank(message = "Description cannot be blank")
     private String description;
 
+    private boolean isValid;
+
     private LocalDateTime createdAt;
 }
+
+
+
+

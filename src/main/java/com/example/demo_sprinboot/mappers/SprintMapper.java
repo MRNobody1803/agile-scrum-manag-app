@@ -7,7 +7,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface SprintMapper {
-    SprintMapper INSTANCE = Mappers.getMapper(SprintMapper.class);
     SprintDTO toDto(Sprint sprint);
     Sprint toEntity(SprintDTO sprintDTO);
 }
