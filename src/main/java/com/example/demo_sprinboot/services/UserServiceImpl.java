@@ -6,7 +6,6 @@ import com.example.demo_sprinboot.exceptions.UserNotFoundException;
 import com.example.demo_sprinboot.mappers.UserMapper;
 import com.example.demo_sprinboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,13 +14,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper = UserMapper.INSTANCE; // Utilisation du UserMapper
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -34,9 +31,8 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Email already in use.");
         }
 
-        String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
+        // Créer un utilisateur sans encoder le mot de passe
         User user = userMapper.userDTOToUser(userDTO);
-        user.setPassword(encodedPassword);
         user = userRepository.save(user);
 
         return userMapper.userToUserDTO(user);
@@ -52,7 +48,8 @@ public class UserServiceImpl implements UserService {
 
         User user = userOptional.get();
 
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        // Comparaison simple des mots de passe sans hashage
+        if (!password.equals(user.getPassword())) {
             throw new RuntimeException("Invalid username or password.");
         }
 
@@ -77,5 +74,4 @@ public class UserServiceImpl implements UserService {
         }
         return Optional.empty();
     }
-
 }
