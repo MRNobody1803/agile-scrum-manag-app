@@ -5,7 +5,7 @@ import com.example.demo_sprinboot.entities.Sprint;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface SprintMapper {
     SprintMapper INSTANCE = Mappers.getMapper(SprintMapper.class);
     SprintDTO toDto(Sprint sprint);

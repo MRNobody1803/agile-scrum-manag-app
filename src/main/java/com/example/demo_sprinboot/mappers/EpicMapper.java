@@ -6,9 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface EpicMapper {
-    EpicMapper INSTANCE = Mappers.getMapper(EpicMapper.class);
 
     @Mapping(source = "productBacklog.id", target = "productBacklogId")
     EpicDTO toDTO(Epic epic);
