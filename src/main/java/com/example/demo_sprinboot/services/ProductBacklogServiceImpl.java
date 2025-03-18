@@ -2,7 +2,6 @@ package com.example.demo_sprinboot.services;
 
 import com.example.demo_sprinboot.DTO.ProductBacklogDTO;
 import com.example.demo_sprinboot.entities.ProductBacklog;
-import com.example.demo_sprinboot.exceptions.ProductBacklogNotFoundException;
 import com.example.demo_sprinboot.mappers.ProductBacklogMapper;
 import com.example.demo_sprinboot.repository.ProductBacklogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,12 @@ import java.util.List;
 public class ProductBacklogServiceImpl implements ProductBacklogService {
 
     private final ProductBacklogRepository productBacklogRepository;
-    private final ProductBacklogMapper productBacklogMapper;
+    private final ProductBacklogMapper productBacklogMapper = ProductBacklogMapper.INSTANCE;
 
     @Autowired
-    public ProductBacklogServiceImpl(ProductBacklogRepository productBacklogRepository, ProductBacklogMapper productBacklogMapper) {
+
+    public ProductBacklogServiceImpl(ProductBacklogRepository productBacklogRepository) {
         this.productBacklogRepository = productBacklogRepository;
-        this.productBacklogMapper = productBacklogMapper;
     }
 
     @Override
@@ -36,8 +35,8 @@ public class ProductBacklogServiceImpl implements ProductBacklogService {
     @Cacheable(value = "productBacklogs", key = "#id")
     public ProductBacklogDTO getProductBacklogById(long id) {
         ProductBacklog productBacklog = productBacklogRepository.findById(id)
-                .orElseThrow(() -> new ProductBacklogNotFoundException("Product backlog with id: " + id + " not found"));
-        return productBacklogMapper.toDto(productBacklog);
+                .orElseThrow(() -> new RuntimeException("Product backlog with id: " + id + " not found"));
+        return productBacklogMapper.toDTO(productBacklog);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class ProductBacklogServiceImpl implements ProductBacklogService {
     public ProductBacklogDTO createProductBacklog(ProductBacklogDTO productBacklogDTO) {
         ProductBacklog productBacklog = productBacklogMapper.toEntity(productBacklogDTO);
         ProductBacklog savedProductBacklog = productBacklogRepository.save(productBacklog);
-        return productBacklogMapper.toDto(savedProductBacklog);
+        return productBacklogMapper.toDTO(savedProductBacklog);
     }
 
     @Override
@@ -54,10 +53,10 @@ public class ProductBacklogServiceImpl implements ProductBacklogService {
     @CacheEvict(value = "productBacklogs", allEntries = true) // Clear cache after update
     public ProductBacklogDTO updateProductBacklog(long id, ProductBacklogDTO productBacklogDTO) {
         ProductBacklog productBacklog = productBacklogRepository.findById(id)
-                .orElseThrow(() -> new ProductBacklogNotFoundException("Product backlog with id: " + id + " not found"));
+                .orElseThrow(() -> new RuntimeException("Product backlog with id: " + id + " not found"));
         productBacklog.setName(productBacklogDTO.getName());
         ProductBacklog updatedProductBacklog = productBacklogRepository.save(productBacklog);
-        return productBacklogMapper.toDto(updatedProductBacklog);
+        return productBacklogMapper.toDTO(updatedProductBacklog);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class ProductBacklogServiceImpl implements ProductBacklogService {
     @CacheEvict(value = "productBacklogs", key = "#id")
     public boolean deleteProductBacklogById(long id) {
         ProductBacklog productBacklog = productBacklogRepository.findById(id)
-                .orElseThrow(() -> new ProductBacklogNotFoundException("Product backlog with id: " + id + " not found"));
+                .orElseThrow(() -> new RuntimeException("Product backlog with id: " + id + " not found"));
         productBacklogRepository.deleteById(id);
         return true;
     }
