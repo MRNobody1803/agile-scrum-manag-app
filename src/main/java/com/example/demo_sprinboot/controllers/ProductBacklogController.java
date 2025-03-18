@@ -1,6 +1,6 @@
 package com.example.demo_sprinboot.controllers;
 
-import com.example.demo_sprinboot.entities.ProductBacklog;
+import com.example.demo_sprinboot.DTO.ProductBacklogDTO;
 import com.example.demo_sprinboot.services.ProductBacklogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,40 +12,52 @@ import java.util.List;
 @RequestMapping("/api/backlogs")
 public class ProductBacklogController {
 
+    private final ProductBacklogService productBacklogService;
+
     @Autowired
-    private ProductBacklogService productBacklogService;
+    public ProductBacklogController(ProductBacklogService productBacklogService) {
+        this.productBacklogService = productBacklogService;
+    }
 
     @GetMapping
-    public ResponseEntity<List<ProductBacklog>> getAllProductBacklogs() {
-        List<ProductBacklog> backlogs = productBacklogService.getAllProductBacklogs();
-        return ResponseEntity.ok().body(backlogs);
+    public ResponseEntity<List<ProductBacklogDTO>> getAllProductBacklogs() {
+        List<ProductBacklogDTO> backlogs = productBacklogService.getAllProductBacklogs();
+        return ResponseEntity.ok(backlogs);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductBacklog> getProductBacklogById(@PathVariable long id) {
-        ProductBacklog backlog = productBacklogService.getProductBacklogById(id);
-        return ResponseEntity.ok().body(backlog);
+    public ResponseEntity<ProductBacklogDTO> getProductBacklogById(@PathVariable long id) {
+        ProductBacklogDTO backlog = productBacklogService.getProductBacklogById(id);
+        if (backlog != null) {
+            return ResponseEntity.ok(backlog);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-
     @PostMapping
-    public ResponseEntity<ProductBacklog> createProductBacklog(@RequestBody ProductBacklog productBacklog) {
-        ProductBacklog createdBacklog = productBacklogService.createProductBacklog(productBacklog);
+    public ResponseEntity<ProductBacklogDTO> createProductBacklog(@RequestBody ProductBacklogDTO productBacklogDTO) {
+        ProductBacklogDTO createdBacklog = productBacklogService.createProductBacklog(productBacklogDTO);
         return ResponseEntity.status(201).body(createdBacklog);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductBacklog> updateProductBacklog(@PathVariable long id, @RequestBody ProductBacklog productBacklog) {
-        productBacklog.setId(id);
-        ProductBacklog backlog = productBacklogService.updateProductBacklog(id,productBacklog);
-        return ResponseEntity.ok().body(backlog);
+    public ResponseEntity<ProductBacklogDTO> updateProductBacklog(@PathVariable long id, @RequestBody ProductBacklogDTO productBacklogDTO) {
+        ProductBacklogDTO updatedBacklog = productBacklogService.updateProductBacklog(id, productBacklogDTO);
+        if (updatedBacklog != null) {
+            return ResponseEntity.ok(updatedBacklog);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProductBacklog> deleteProductBacklog(@PathVariable long id) {
-        productBacklogService.deleteProductBacklogById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteProductBacklog(@PathVariable long id) {
+        boolean isDeleted = productBacklogService.deleteProductBacklogById(id);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
 }
-
