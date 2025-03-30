@@ -8,7 +8,9 @@ import com.example.demo_sprinboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -40,7 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDTO> loginUser(String username, String password) {
-
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()) {
             throw new UserNotFoundException("Invalid username or password.");
@@ -60,18 +61,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logoutUser(UserDTO userDTO) {
-        // ------------------------------------------------
-        // -------------------------------------------------
+        System.out.println("User " + userDTO.getUsername() + " logged out successfully.");
     }
 
     @Override
     public Optional<UserDTO> getUserById(long id) {
         Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            UserDTO userDTO = userMapper.userToUserDTO(user);
-            return Optional.of(userDTO);
+        return userOptional.map(userMapper::userToUserDTO);
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(userMapper::userToUserDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword()); // On va le hacher aprés
+
+        user = userRepository.save(user);
+        return userMapper.userToUserDTO(user);
+    }
+
+    @Override
+    public boolean deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException("User not found with id: " + id);
         }
-        return Optional.empty();
+        userRepository.deleteById(id);
+        return true;
     }
 }
