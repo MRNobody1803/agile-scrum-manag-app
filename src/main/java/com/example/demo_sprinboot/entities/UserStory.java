@@ -26,7 +26,7 @@ public class UserStory {
     private String asA;
     private String iWant;
     private String soThat;
-    private int priority;
+    private Priority priority;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -37,10 +37,6 @@ public class UserStory {
 
     @OneToMany(mappedBy = "userStory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Task> tasks;
-
-    @ManyToOne
-    @JoinColumn(name = "product_backlog_id") // Changed to singular form
-    private ProductBacklog productBacklog;
 
     @ManyToOne
     @JoinColumn(name = "sprint_backlog_id")

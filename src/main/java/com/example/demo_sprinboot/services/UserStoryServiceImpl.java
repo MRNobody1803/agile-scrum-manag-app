@@ -1,109 +1,161 @@
 package com.example.demo_sprinboot.services;
 
-
-import com.example.demo_sprinboot.entities.Task;
-import com.example.demo_sprinboot.entities.UserStory;
+import com.example.demo_sprinboot.DTO.UserStoryDTO;
+import com.example.demo_sprinboot.entities.*;
+import com.example.demo_sprinboot.exceptions.ResourceNotFoundException;
 import com.example.demo_sprinboot.mappers.UserStoryMapper;
+import com.example.demo_sprinboot.repository.EpicRepository;
+import com.example.demo_sprinboot.repository.SprintBacklogRepository;
 import com.example.demo_sprinboot.repository.UserStoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserStoryServiceImpl implements UserStoryService {
 
+    private final EpicRepository epicRepository;
+    private final SprintBacklogRepository sprintBacklogRepository;
     private final UserStoryRepository userStoryRepository;
-    private final UserStoryMapper userStoryMapper = UserStoryMapper.INSTANCE;
+    private final UserStoryMapper userStoryMapper;
 
     @Autowired
-    public UserStoryServiceImpl(UserStoryRepository userStoryRepository) {
+    public UserStoryServiceImpl(EpicRepository epicRepository, SprintBacklogRepository sprintBacklogRepository, UserStoryRepository userStoryRepository, UserStoryMapper userStoryMapper) {
+        this.epicRepository = epicRepository;
+        this.sprintBacklogRepository = sprintBacklogRepository;
         this.userStoryRepository = userStoryRepository;
+        this.userStoryMapper = userStoryMapper;
     }
 
     @Override
-    public List<UserStory> getAllUserStories() {
-        return userStoryRepository.findAll();
+    @Cacheable("userStories")
+    public List<UserStoryDTO> getAllUserStories() {
+        return userStoryRepository.findAll().stream()
+                .map(userStoryMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public UserStory getUserStoryById(Long id) {
-        return userStoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User story with id " + id + " not found"));
+    @Cacheable(value = "userStories", key = "#id")
+    public UserStoryDTO getUserStoryById(Long id) {
+        UserStory userStory = userStoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+        return userStoryMapper.toDto(userStory);
     }
 
     @Override
-    public UserStory createUserStory(UserStory userStory) {
-        return userStoryRepository.save(userStory);
+    @CacheEvict(value = "userStories", allEntries = true)
+    public UserStoryDTO createUserStory(UserStoryDTO userStoryDTO) {
+        UserStory userStory = userStoryMapper.toEntity(userStoryDTO);
+        UserStory savedUserStory = userStoryRepository.save(userStory);
+        return userStoryMapper.toDto(savedUserStory);
     }
 
     @Override
-    public UserStory updateUserStory(Long id, UserStory userStory) {
-        Optional<UserStory> existingUserStory = userStoryRepository.findById(id);
-        if (existingUserStory.isPresent()) {
-            UserStory updatedUserStory = existingUserStory.get();
-            updatedUserStory.setTitle(userStory.getTitle());
-            updatedUserStory.setDescription(userStory.getDescription());
-            updatedUserStory.setAsA(userStory.getAsA());
-            updatedUserStory.setIWant(userStory.getIWant());
-            updatedUserStory.setSoThat(userStory.getSoThat());
-            updatedUserStory.setPriority(userStory.getPriority());
-            updatedUserStory.setStatus(userStory.getStatus());
-            updatedUserStory.setEpic(userStory.getEpic());
-            updatedUserStory.setSprintBacklog(userStory.getSprintBacklog());
-            updatedUserStory.setTasks(userStory.getTasks());
-            updatedUserStory.setProductBacklog(userStory.getProductBacklog());
-            return userStoryRepository.save(updatedUserStory);
-        } else {
-            throw new RuntimeException("User story with id " + id + " not found");
+    @CacheEvict(value = "userStories", key = "#id")
+    public UserStoryDTO updateUserStory(Long id, UserStoryDTO userStoryDTO) {
+        UserStory existingUserStory = userStoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+
+        existingUserStory.setTitle(userStoryDTO.getTitle());
+        existingUserStory.setDescription(userStoryDTO.getDescription());
+        existingUserStory.setAsA(userStoryDTO.getAsA());
+        existingUserStory.setIWant(userStoryDTO.getIWant());
+        existingUserStory.setSoThat(userStoryDTO.getSoThat());
+        existingUserStory.setPriority(Priority.values()[userStoryDTO.getPriority()]);
+        existingUserStory.setStatus(userStoryDTO.getStatus());
+
+        if (userStoryDTO.getEpicId() != null) {
+            Epic epic = epicRepository.findById(userStoryDTO.getEpicId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Epic not found"));
+            existingUserStory.setEpic(epic);
         }
+
+        if (userStoryDTO.getSprintBacklogId() != null) {
+            SprintBacklog sprintBacklog = sprintBacklogRepository.findById(userStoryDTO.getSprintBacklogId())
+                    .orElseThrow(() -> new ResourceNotFoundException("SprintBacklog not found"));
+            existingUserStory.setSprintBacklog(sprintBacklog);
+        }
+
+        UserStory updatedUserStory = userStoryRepository.save(existingUserStory);
+        return userStoryMapper.toDto(updatedUserStory);
     }
 
     @Override
+    @CacheEvict(value = "userStories", key = "#id")
     public void deleteUserStoryById(Long id) {
-        if (userStoryRepository.existsById(id)) {
-            userStoryRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("User story with id " + id + " not found");
+        if (!userStoryRepository.existsById(id)) {
+            throw new ResourceNotFoundException("User story with id " + id + " not found");
         }
+        userStoryRepository.deleteById(id);
     }
 
     @Override
-    public UserStory addTaskToUserStory(Long userStoryId, Task task) {
-        UserStory userStory = getUserStoryById(userStoryId);
+    @CacheEvict(value = "userStories", key = "#userStoryId")
+    public UserStoryDTO addTaskToUserStory(Long userStoryId, Task task) {
+        UserStory userStory = userStoryRepository.findById(userStoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + userStoryId + " not found"));
         userStory.getTasks().add(task);
         task.setUserStory(userStory);
-        return userStoryRepository.save(userStory);
+        UserStory updatedUserStory = userStoryRepository.save(userStory);
+        return userStoryMapper.toDto(updatedUserStory);
     }
 
     @Override
-    public UserStory updateAsAAndIWantAndSoThat(Long id, String asA, String iWant, String soThat) {
-        UserStory userStory = getUserStoryById(id);
+    public UserStoryDTO updateAsAAndIWantAndSoThat(Long id, String asA, String iWant, String soThat) {
+        UserStory userStory = userStoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+
         userStory.setAsA(asA);
         userStory.setIWant(iWant);
         userStory.setSoThat(soThat);
-        return userStoryRepository.save(userStory);
+
+        UserStory updatedUserStory = userStoryRepository.save(userStory);
+        return userStoryMapper.toDto(updatedUserStory);
     }
 
     @Override
-    public UserStory updatePriority(Long id, int priority) {
-        UserStory userStory = getUserStoryById(id);
-        userStory.setPriority(priority);
-        return userStoryRepository.save(userStory);
+    @CacheEvict(value = "userStories", key = "#id")
+    public UserStoryDTO updatePriority(Long id, String priority) {
+        UserStory userStory = userStoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+
+        try {
+            Priority priorityEnum = Priority.valueOf(priority.toUpperCase());
+            userStory.setPriority(priorityEnum);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid priority value: " + priority);
+        }
+
+        UserStory updatedUserStory = userStoryRepository.save(userStory);
+        return userStoryMapper.toDto(updatedUserStory);
     }
 
     @Override
-    public UserStory updateTitle(Long id, String title) {
-        UserStory userStory = getUserStoryById(id);
+    @CacheEvict(value = "userStories", key = "#id")
+    public UserStoryDTO updateTitle(Long id, String title) {
+        UserStory userStory = userStoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+
         userStory.setTitle(title);
-        return userStoryRepository.save(userStory);
+        UserStory updatedUserStory = userStoryRepository.save(userStory);
+        return userStoryMapper.toDto(updatedUserStory);
     }
 
     @Override
-    public UserStory updateDescription(Long id, String description) {
-        UserStory userStory = getUserStoryById(id);
+    @CacheEvict(value = "userStories", key = "#id")
+    public UserStoryDTO updateDescription(Long id, String description) {
+        UserStory userStory = userStoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+
         userStory.setDescription(description);
-        return userStoryRepository.save(userStory);
+        UserStory updatedUserStory = userStoryRepository.save(userStory);
+        return userStoryMapper.toDto(updatedUserStory);
     }
+
+
+
 }

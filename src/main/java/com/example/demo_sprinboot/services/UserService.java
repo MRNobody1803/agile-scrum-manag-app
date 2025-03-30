@@ -1,7 +1,8 @@
 package com.example.demo_sprinboot.services;
 
 import com.example.demo_sprinboot.DTO.UserDTO;
-import com.example.demo_sprinboot.entities.User;
+
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -13,4 +14,10 @@ public interface UserService {
     void logoutUser(UserDTO userDTO);
 
     Optional<UserDTO> getUserById(long id);
+
+    List<UserDTO> getAllUsers(); // 🔹 Récupérer tous les utilisateurs
+
+    UserDTO updateUser(Long id, UserDTO userDTO); // 🔹 Mettre à jour un utilisateur
+
+    boolean deleteUser(Long id); // 🔹 Supprimer un utilisateur
 }

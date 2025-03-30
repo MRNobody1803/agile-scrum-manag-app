@@ -1,20 +1,21 @@
 package com.example.demo_sprinboot.services;
 
 
+import com.example.demo_sprinboot.DTO.UserStoryDTO;
 import com.example.demo_sprinboot.entities.Task;
 import com.example.demo_sprinboot.entities.UserStory;
 
 import java.util.List;
 
 public interface UserStoryService {
-    List<UserStory> getAllUserStories();
-    UserStory getUserStoryById(Long id);
-    UserStory createUserStory(UserStory userStory);
-    UserStory updateUserStory(Long id, UserStory userStory);
+    List<UserStoryDTO> getAllUserStories();
+    UserStoryDTO getUserStoryById(Long id);
+    UserStoryDTO createUserStory(UserStoryDTO userStory);
+    UserStoryDTO updateUserStory(Long id, UserStoryDTO userStory);
     void deleteUserStoryById(Long id);
-    UserStory addTaskToUserStory(Long userStoryId, Task task);
-    UserStory updateAsAAndIWantAndSoThat(Long id, String asA, String iWant, String soThat);
-    UserStory updatePriority(Long id, int priority);
-    UserStory updateTitle(Long id, String title);
-    UserStory updateDescription(Long id, String description);
+    UserStoryDTO addTaskToUserStory(Long userStoryId, Task task);
+    UserStoryDTO updateAsAAndIWantAndSoThat(Long id, String asA, String iWant, String soThat);
+    UserStoryDTO updatePriority(Long id, String priority);
+    UserStoryDTO updateTitle(Long id, String title);
+    UserStoryDTO updateDescription(Long id, String description);
 }
