@@ -15,29 +15,28 @@ import lombok.NoArgsConstructor;
 public class UserStoryDTO {
     private Long id;
 
-    @NotBlank(message = "Title cannot be blank")
+
     @Size(max = 100, message = "Title cannot exceed 100 characters")
     private String title;
 
-    @Size(max = 500, message = "Description cannot exceed 500 characters")
+
     private String description;
 
-    @NotBlank(message = "As a cannot be blank")
+
     private String asA;
 
-    @NotBlank(message = "I want cannot be blank")
+
     private String iWant;
 
-    @NotBlank(message = "So that cannot be blank")
+
     private String soThat;
 
-    @NotNull(message = "Priority cannot be null")
-    private Priority priority;
 
-    @NotNull(message = "Status cannot be null")
+    private int priority;
+
+
     private Status status;
 
     private Long epicId;
-    private Long productBacklogId;
     private Long sprintBacklogId;
 }

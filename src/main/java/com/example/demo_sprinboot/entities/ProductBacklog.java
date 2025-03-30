@@ -34,9 +34,6 @@ public class ProductBacklog {
 
     private LocalDateTime updatedAt ;
 
-    @OneToMany(mappedBy = "productBacklog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserStory> userStories;
-
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
