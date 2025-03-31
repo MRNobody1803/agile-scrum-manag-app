@@ -21,7 +21,7 @@ public class Task {
 
     private String name;
     private String description;
-    private String status;
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "user_story_id")
