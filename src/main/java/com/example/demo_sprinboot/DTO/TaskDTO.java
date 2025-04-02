@@ -1,6 +1,6 @@
 package com.example.demo_sprinboot.DTO;
 
-import com.example.demo_sprinboot.entities.UserStory;
+import com.example.demo_sprinboot.entities.Status; // Importer l'énum Status
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,9 +21,9 @@ public class TaskDTO {
     @Size(max = 500, message = "Description cannot exceed 500 characters")
     private String description;
 
-    @NotBlank(message = "Status cannot be blank")
-    private String status;
+    @NotNull(message = "Status cannot be null")
+    private Status status; // Utilise Status plutôt que String
 
-    @NotNull(message = "User story cannot be null")
+//    @NotNull(message = "User story cannot be null")
     private Long userStoryId;
 }

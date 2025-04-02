@@ -5,6 +5,8 @@ import com.example.demo_sprinboot.entities.Task;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface TaskMapper {
 
@@ -12,4 +14,5 @@ public interface TaskMapper {
 
     TaskDTO toDto(Task task);
     Task toEntity(TaskDTO taskDTO);
+    List<TaskDTO> toDto(List<Task> tasks);
 }
