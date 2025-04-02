@@ -24,6 +24,6 @@ public class TaskDTO {
     @NotNull(message = "Status cannot be null")
     private Status status; // Utilise Status plutôt que String
 
-    @NotNull(message = "User story cannot be null")
+//    @NotNull(message = "User story cannot be null")
     private Long userStoryId;
 }
