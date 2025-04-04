@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -22,10 +23,10 @@ public class SprintDTO {
     private String name;
 
     @NotNull(message = "Start date cannot be null")
-    private Date startDate;
+    private LocalDate startDate;
 
     @NotNull(message = "End date cannot be null")
-    private Date endDate;
+    private LocalDate endDate;
 
     @NotNull(message = "Status cannot be null")
     private Status status;

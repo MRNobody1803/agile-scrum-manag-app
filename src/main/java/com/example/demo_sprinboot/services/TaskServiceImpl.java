@@ -16,14 +16,16 @@ import java.util.Optional;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    @Autowired
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+    private final UserStoryRepository userStoryRepository;
+    private final TaskMapper taskMapper;
 
     @Autowired
-    private UserStoryRepository userStoryRepository;
-
-    @Autowired
-    private TaskMapper taskMapper;
+    public TaskServiceImpl(TaskRepository taskRepository, UserStoryRepository userStoryRepository, TaskMapper taskMapper) {
+        this.taskRepository = taskRepository;
+        this.userStoryRepository = userStoryRepository;
+        this.taskMapper = taskMapper;
+    }
 
     @Override
     public TaskDTO createTask(TaskDTO taskDTO) {
@@ -100,6 +102,6 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskDTO> getAllTasks() {
         // Retrieve all tasks and map them to DTOs
         List<Task> tasks = taskRepository.findAll();
-        return taskMapper.toDto(tasks);
+        return tasks.stream().map(taskMapper::toDto).toList();
     }
 }
