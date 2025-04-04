@@ -14,7 +14,7 @@ import java.util.List;
 public class SprintBacklogDTO {
     private Long id;
 
-    @NotBlank(message = "Name cannot be blank")
+
     @Size(max = 100, message = "Name cannot exceed 100 characters")
     private String name;
 

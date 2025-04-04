@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 public class TaskDTO {
     private Long id;
 
-    @NotBlank(message = "Name cannot be blank")
+//    @NotBlank(message = "Name cannot be blank")
     @Size(max = 100, message = "Name cannot exceed 100 characters")
     private String name;
 
     @Size(max = 500, message = "Description cannot exceed 500 characters")
     private String description;
 
-    @NotNull(message = "Status cannot be null")
+//    @NotNull(message = "Status cannot be null")
     private Status status; // Utilise Status plutôt que String
 
 //    @NotNull(message = "User story cannot be null")
