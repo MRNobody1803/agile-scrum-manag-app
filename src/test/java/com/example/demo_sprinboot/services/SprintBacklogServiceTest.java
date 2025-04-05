@@ -80,7 +80,7 @@ class SprintBacklogServiceTest {
     @Test
     void testUpdateSprintBacklog() {
         when(sprintBacklogRepository.findById(1L)).thenReturn(Optional.of(sprintBacklog));
-        when(sprintBacklogMapper.toEntity(sprintBacklogDTO)).thenReturn(sprintBacklog); // 👈 ligne ajoutée
+        when(sprintBacklogMapper.toEntity(sprintBacklogDTO)).thenReturn(sprintBacklog);
         when(sprintBacklogRepository.save(any(SprintBacklog.class))).thenReturn(sprintBacklog);
         when(sprintBacklogMapper.toDto(any(SprintBacklog.class))).thenReturn(sprintBacklogDTO);
 
