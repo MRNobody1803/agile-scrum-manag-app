@@ -34,8 +34,7 @@ package com.example.demo_sprinboot.config;
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/swagger-ui.html",
-                                        "/swagger-resources/**",
-                                        "/webjars/**"
+                                        "/swagger-resources/**"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                         )
