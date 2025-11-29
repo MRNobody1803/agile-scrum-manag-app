@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: agile_postgresDb
+    restart: always
+    environment:
+      POSTGRES_DB: scrum
+      POSTGRES_USER: agile
+      POSTGRES_PASSWORD: agilePwd
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - postgres_net
+
+
+volumes:
+  postgres_data:
+    driver: local
