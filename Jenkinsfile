@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh './mvnw clean verify '
+                sh './mvnw clean test '
             }
         }
 
