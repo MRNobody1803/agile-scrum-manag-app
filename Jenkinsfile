@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh './mvnw clean install -DskipTests'
+                sh './mvnw clean verify '
             }
         }
 
@@ -30,7 +30,6 @@ pipeline {
                             -Dsonar.projectKey=Agile_Scrum_App \
                             -Dsonar.projectName=Agile_Scrum_App \
                             -Dsonar.sources=src/main/java \
-                            -Dsonar.java.binaries=target/classes
                         """
                     }
                 }
