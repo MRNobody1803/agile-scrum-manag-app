@@ -4,6 +4,7 @@ pipeline {
     tools {
         maven 'Maven-3.9'
         jdk 'JDK17'
+        SonarScanner 'SonarScanner'
     }
 
     stages {
@@ -20,24 +21,29 @@ pipeline {
             }
         }
 
-        stage('Scan') {
+        stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv(installationName: 'SonarQb') {
-                    sh """
-                        ./mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar \
-                        -Dsonar.projectKey=Agile_Scrum_App \
-                        -Dsonar.projectName='Agile_Scrum_App' \
-                    """
+                withSonarQubeEnv('SonarQb') { // inject SONAR_HOST_URL + token
+                    script {
+                        def scannerHome = tool 'SonarScanner'
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=Agile_Scrum_App \
+                            -Dsonar.projectName=Agile_Scrum_App \
+                            -Dsonar.sources=src/main/java \
+                            -Dsonar.java.binaries=target/classes
+                        """
+                    }
                 }
             }
         }
 
-     //   stage("Quality Gate") {
-       //     steps {
-         //       timeout(time: 5, unit: 'MINUTES') {
-           //         waitForQualityGate abortPipeline: true
-             //   }
-            //}
-        //}
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
     }
 }
