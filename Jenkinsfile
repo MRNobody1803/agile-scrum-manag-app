@@ -38,6 +38,6 @@ pipeline {
            //         waitForQualityGate abortPipeline: true
              //   }
             //}
-        }
+        //}
     }
 }
