@@ -2,6 +2,7 @@ package com.example.agile.DTO;
 
 import com.example.agile.entities.SprintBacklog;
 import com.example.agile.entities.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,10 +23,13 @@ public class SprintDTO {
     private String name;
 
     @NotNull(message = "Start date cannot be null")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @NotNull(message = "End date cannot be null")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
+
 
     @NotNull(message = "Status cannot be null")
     private Status status;

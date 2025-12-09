@@ -1,5 +1,6 @@
 package com.example.agile.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +35,7 @@ public class UserStory {
     @JoinColumn(name = "epic_id") // Changed to singular form
     private Epic epic;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userStory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Task> tasks;
 

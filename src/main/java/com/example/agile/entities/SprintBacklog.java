@@ -1,5 +1,6 @@
 package com.example.agile.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class SprintBacklog {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sprintBacklog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserStory> userStories;
 

@@ -1,6 +1,7 @@
 package com.example.agile.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class Task {
     private String description;
     private Status status;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_story_id")
     private UserStory userStory;
