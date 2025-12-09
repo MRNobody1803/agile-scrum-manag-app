@@ -39,9 +39,9 @@ PS C:\Users\Surface\IdeaProjects\App-Agile-Scrum> mvn clean test
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running com.example.demo_sprinboot.DemoSprinBootApplicationTests
-14:26:17.737 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.demo_sprinboot.DemoSprinBootApplicationTests]: DemoSprinBootApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-14:26:18.030 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.demo_sprinboot.DemoSprinBootApplication for test class com.example.demo_sprinboot.DemoSprinBootApplicationTests
+[INFO] Running com.example.agile.DemoSprinBootApplicationTests
+14:26:17.737 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.agile.DemoSprinBootApplicationTests]: DemoSprinBootApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:26:18.030 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.agile.DemoSprinBootApplication for test class com.example.agile.DemoSprinBootApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -81,31 +81,31 @@ PS C:\Users\Surface\IdeaProjects\App-Agile-Scrum> mvn clean test
 2025-11-30T14:26:36.069+01:00  INFO 16964 --- [App_sprinBoot] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
 2025-11-30T14:26:36.316+01:00  INFO 16964 --- [App_sprinBoot] [           main] c.e.d.DemoSprinBootApplicationTests      : Started DemoSprinBootApplicationTests in 17.93 seconds (process running for 20.274)
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 20.26 s -- in com.example.demo_sprinboot.DemoSprinBootApplicationTests
-[INFO] Running com.example.demo_sprinboot.services.AcceptanceCriteriaServiceTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 20.26 s -- in com.example.agile.DemoSprinBootApplicationTests
+[INFO] Running com.example.agile.services.AcceptanceCriteriaServiceTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.703 s -- in com.example.demo_sprinboot.services.AcceptanceCriteriaServiceTest
-[INFO] Running com.example.demo_sprinboot.services.EpicServiceTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.703 s -- in com.example.agile.services.AcceptanceCriteriaServiceTest
+[INFO] Running com.example.agile.services.EpicServiceTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.981 s -- in com.example.demo_sprinboot.services.EpicServiceTest
-[INFO] Running com.example.demo_sprinboot.services.ProductBacklogServiceTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.981 s -- in com.example.agile.services.EpicServiceTest
+[INFO] Running com.example.agile.services.ProductBacklogServiceTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.413 s -- in com.example.demo_sprinboot.services.ProductBacklogServiceTest
-[INFO] Running com.example.demo_sprinboot.services.SprintBacklogServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.413 s -- in com.example.agile.services.ProductBacklogServiceTest
+[INFO] Running com.example.agile.services.SprintBacklogServiceTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.794 s -- in com.example.demo_sprinboot.services.SprintBacklogServiceTest
-[INFO] Running com.example.demo_sprinboot.services.SprintServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.794 s -- in com.example.agile.services.SprintBacklogServiceTest
+[INFO] Running com.example.agile.services.SprintServiceTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.353 s -- in com.example.demo_sprinboot.services.SprintServiceTest
-[INFO] Running com.example.demo_sprinboot.services.TaskServiceImplTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.353 s -- in com.example.agile.services.SprintServiceTest
+[INFO] Running com.example.agile.services.TaskServiceImplTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.577 s -- in com.example.demo_sprinboot.services.TaskServiceImplTest
-[INFO] Running com.example.demo_sprinboot.services.UserServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.577 s -- in com.example.agile.services.TaskServiceImplTest
+[INFO] Running com.example.agile.services.UserServiceTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.683 s -- in com.example.demo_sprinboot.services.UserServiceTest
-[INFO] Running com.example.demo_sprinboot.services.UserStoryServiceTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.683 s -- in com.example.agile.services.UserServiceTest
+[INFO] Running com.example.agile.services.UserStoryServiceTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.584 s -- in com.example.demo_sprinboot.services.UserStoryServiceTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.584 s -- in com.example.agile.services.UserStoryServiceTest
 [INFO]
 [INFO] Results:
 [INFO]

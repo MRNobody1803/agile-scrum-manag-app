@@ -1,0 +1,48 @@
+package com.example.agile.entities;
+
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor @Accessors @Getter
+@Entity
+@AllArgsConstructor
+@Builder
+@Table(name = "product_backlogs")
+public class ProductBacklog {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;                  // title
+
+    private String description;
+
+    private Priority priority ;              // HIGHT, MEDIUM, LOW
+
+    @Enumerated (EnumType.STRING)
+    private Status status ;                 // TO DO , IN PROGRESS , DONE
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt ;       // date of creation
+
+    private LocalDateTime updatedAt ;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+
+}
