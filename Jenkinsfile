@@ -38,8 +38,23 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                script {
+                    timeout(time: 5, unit: 'MINUTES') {
+                        def qg = waitForQualityGate abortPipeline: true
+                        if (qg.status == 'OK') {
+                            echo "Quality Gate PASSED ✅ - ready to merge to main"
+                            // Merge dans main branch
+                            sh """
+                                git config user.email "jenkins@example.com"
+                                git config user.name "Jenkins CI"
+                                git checkout main
+                                git merge ${env.BRANCH_NAME}
+                                git push origin main
+                            """
+                        } else {
+                            error "Quality Gate FAILED ❌ - abort merge"
+                        }
+                    }
                 }
             }
         }

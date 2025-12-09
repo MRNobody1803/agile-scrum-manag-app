@@ -1,5 +1,6 @@
 package com.example.agile.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class AcceptanceCriteria {
 
     @ManyToOne
     @JoinColumn(name = "user_story_id")
+    @JsonIgnore
     private UserStory userStory;
 
     private String description;
