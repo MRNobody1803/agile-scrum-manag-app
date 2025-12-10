@@ -18,14 +18,14 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    private static final long expiration = 1000L * 60 * 60 * 24; // 1 day
+    private static final long EXPIRATION = 1000L * 60 * 60 * 24; // 1 day
 
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .claim("role", userDetails.getAuthorities().iterator().next().getAuthority())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
