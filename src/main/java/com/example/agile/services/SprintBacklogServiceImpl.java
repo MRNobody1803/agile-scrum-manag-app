@@ -2,7 +2,7 @@ package com.example.agile.services;
 
 import com.example.agile.dto.SprintBacklogDTO;
 import com.example.agile.entities.SprintBacklog;
-import com.example.agile.exceptions.UserNotFoundException;
+import com.example.agile.exceptions.ResourceNotFoundException;
 import com.example.agile.mappers.SprintBacklogMapper;
 import com.example.agile.repository.SprintBacklogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +67,7 @@ public class SprintBacklogServiceImpl implements SprintBacklogService {
     @CacheEvict(value = "sprintBacklogs", key = "#id")
     public void deleteSprintBacklog(Long id) {
         if (!sprintBacklogRepository.existsById(id)) {
-            throw new RuntimeException("SprintBacklog avec l'ID " + id + " introuvable");
+            throw new ResourceNotFoundException("SprintBacklog avec l'ID " + id + " introuvable");
         }
         sprintBacklogRepository.deleteById(id);
     }
@@ -76,7 +76,7 @@ public class SprintBacklogServiceImpl implements SprintBacklogService {
     @Transactional
     public void updateSprintBacklogName(Long id, String newName) {
         if (!sprintBacklogRepository.existsById(id)) {
-            throw new UserNotFoundException("SprintBacklog with id " + id + " not found");
+            throw new ResourceNotFoundException("SprintBacklog with id " + id + " not found");
         }
         sprintBacklogRepository.updateSprintBacklogName(id, newName);
     }

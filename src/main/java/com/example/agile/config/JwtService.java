@@ -18,7 +18,7 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    private final long expiration = 1000L * 60 * 60 * 24; // 1 day
+    private static final long expiration = 1000L * 60 * 60 * 24; // 1 day
 
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
