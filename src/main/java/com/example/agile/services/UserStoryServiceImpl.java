@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.UserStoryDTO;
+import com.example.agile.dto.UserStoryDTO;
 import com.example.agile.entities.*;
 import com.example.agile.exceptions.ResourceNotFoundException;
 import com.example.agile.mappers.UserStoryMapper;
@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 @Service
 public class UserStoryServiceImpl implements UserStoryService {
 
+    private static final String ID = "User story with id ";
+    private static final String NOT_FOUND = " not found";
     private final EpicRepository epicRepository;
     private final SprintBacklogRepository sprintBacklogRepository;
     private final UserStoryRepository userStoryRepository;
@@ -42,7 +44,7 @@ public class UserStoryServiceImpl implements UserStoryService {
     @Cacheable(value = "userStories", key = "#id")
     public UserStoryDTO getUserStoryById(Long id) {
         UserStory userStory = userStoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(ID + id + NOT_FOUND));
         return userStoryMapper.toDto(userStory);
     }
 
@@ -58,7 +60,7 @@ public class UserStoryServiceImpl implements UserStoryService {
     @CacheEvict(value = "userStories", key = "#id")
     public UserStoryDTO updateUserStory(Long id, UserStoryDTO userStoryDTO) {
         UserStory existingUserStory = userStoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(ID + id + NOT_FOUND));
 
         existingUserStory.setTitle(userStoryDTO.getTitle());
         existingUserStory.setDescription(userStoryDTO.getDescription());
@@ -88,7 +90,7 @@ public class UserStoryServiceImpl implements UserStoryService {
     @CacheEvict(value = "userStories", key = "#id")
     public void deleteUserStoryById(Long id) {
         if (!userStoryRepository.existsById(id)) {
-            throw new ResourceNotFoundException("User story with id " + id + " not found");
+            throw new ResourceNotFoundException(ID + id + NOT_FOUND);
         }
         userStoryRepository.deleteById(id);
     }
@@ -97,7 +99,7 @@ public class UserStoryServiceImpl implements UserStoryService {
     @CacheEvict(value = "userStories", key = "#userStoryId")
     public UserStoryDTO addTaskToUserStory(Long userStoryId, Task task) {
         UserStory userStory = userStoryRepository.findById(userStoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + userStoryId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(ID + userStoryId + NOT_FOUND));
         userStory.getTasks().add(task);
         task.setUserStory(userStory);
         UserStory updatedUserStory = userStoryRepository.save(userStory);
@@ -107,7 +109,7 @@ public class UserStoryServiceImpl implements UserStoryService {
     @Override
     public UserStoryDTO updateAsAAndIWantAndSoThat(Long id, String asA, String iWant, String soThat) {
         UserStory userStory = userStoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(ID + id + NOT_FOUND));
 
         userStory.setAsA(asA);
         userStory.setIWant(iWant);
@@ -121,7 +123,7 @@ public class UserStoryServiceImpl implements UserStoryService {
     @CacheEvict(value = "userStories", key = "#id")
     public UserStoryDTO updatePriority(Long id, String priority) {
         UserStory userStory = userStoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(ID + id + NOT_FOUND));
 
         try {
             Priority priorityEnum = Priority.valueOf(priority.toUpperCase());
@@ -138,7 +140,7 @@ public class UserStoryServiceImpl implements UserStoryService {
     @CacheEvict(value = "userStories", key = "#id")
     public UserStoryDTO updateTitle(Long id, String title) {
         UserStory userStory = userStoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(ID + id + NOT_FOUND));
 
         userStory.setTitle(title);
         UserStory updatedUserStory = userStoryRepository.save(userStory);
@@ -149,7 +151,7 @@ public class UserStoryServiceImpl implements UserStoryService {
     @CacheEvict(value = "userStories", key = "#id")
     public UserStoryDTO updateDescription(Long id, String description) {
         UserStory userStory = userStoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User story with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(ID + id + NOT_FOUND));
 
         userStory.setDescription(description);
         UserStory updatedUserStory = userStoryRepository.save(userStory);

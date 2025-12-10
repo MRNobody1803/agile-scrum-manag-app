@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.UserDTO;
+import com.example.agile.dto.UserDTO;
 import com.example.agile.exceptions.GlobalExceptionHandler;
 import com.example.agile.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;

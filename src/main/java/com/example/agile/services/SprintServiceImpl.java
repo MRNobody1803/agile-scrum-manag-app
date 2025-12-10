@@ -1,8 +1,9 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.SprintDTO;
+import com.example.agile.dto.SprintDTO;
 import com.example.agile.entities.Sprint;
 import com.example.agile.entities.Status;
+import com.example.agile.exceptions.ResourceNotFoundException;
 import com.example.agile.mappers.SprintMapper;
 import com.example.agile.repository.SprintRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 @Service
 public class SprintServiceImpl implements SprintService {
 
+    private static final String ID = "Sprint with id: ";
+    private static final String NOT_FOUND = "not found";
     private final SprintRepository sprintRepository;
     private final SprintMapper sprintMapper;
 
@@ -59,14 +62,14 @@ public class SprintServiceImpl implements SprintService {
             existingSprint.setStatus(sprintDTO.getStatus());
             Sprint updatedSprint = sprintRepository.save(existingSprint);
             return sprintMapper.toDto(updatedSprint);
-        }).orElseThrow(() -> new RuntimeException("Sprint with id " + id + " not found"));
+        }).orElseThrow(() -> new RuntimeException(ID + id + NOT_FOUND));
     }
 
     @Override
     @CacheEvict(value = "sprints", key = "#id")
     public void deleteSprint(Long id) {
         if (!sprintRepository.existsById(id)) {
-            throw new RuntimeException("Sprint with id " + id + " not found");
+            throw new ResourceNotFoundException(ID + id + NOT_FOUND);
         }
         sprintRepository.deleteById(id);
     }
@@ -75,7 +78,7 @@ public class SprintServiceImpl implements SprintService {
     @CacheEvict(value = "sprints", key = "#id")
     public void startSprint(Long id) {
         Sprint sprint = sprintRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sprint with id " + id + " not found"));
+                .orElseThrow(() -> new RuntimeException(ID + id + NOT_FOUND));
         sprint.setStatus(Status.IN_PROGRESS);
         sprintRepository.save(sprint);
     }
@@ -84,7 +87,7 @@ public class SprintServiceImpl implements SprintService {
     @CacheEvict(value = "sprints", key = "#id")
     public void completeSprint(Long id) {
         Sprint sprint = sprintRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sprint with id " + id + " not found"));
+                .orElseThrow(() -> new RuntimeException(ID + id + NOT_FOUND));
         sprint.setStatus(Status.DONE);
         sprintRepository.save(sprint);
     }

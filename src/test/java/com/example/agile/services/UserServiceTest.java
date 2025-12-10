@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.UserDTO;
+import com.example.agile.dto.UserDTO;
 import com.example.agile.entities.User;
 import com.example.agile.exceptions.UserNotFoundException;
 import com.example.agile.mappers.UserMapper;

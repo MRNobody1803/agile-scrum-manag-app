@@ -1,6 +1,6 @@
 package com.example.agile.mappers;
 
-import com.example.agile.DTO.AcceptanceCriteriaDTO;
+import com.example.agile.dto.AcceptanceCriteriaDTO;
 import com.example.agile.entities.AcceptanceCriteria;
 import org.mapstruct.Mapper;
 

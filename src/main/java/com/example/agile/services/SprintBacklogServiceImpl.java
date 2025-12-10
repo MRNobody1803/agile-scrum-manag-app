@@ -1,7 +1,8 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.SprintBacklogDTO;
+import com.example.agile.dto.SprintBacklogDTO;
 import com.example.agile.entities.SprintBacklog;
+import com.example.agile.exceptions.UserNotFoundException;
 import com.example.agile.mappers.SprintBacklogMapper;
 import com.example.agile.repository.SprintBacklogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,7 @@ public class SprintBacklogServiceImpl implements SprintBacklogService {
     @Transactional
     public void updateSprintBacklogName(Long id, String newName) {
         if (!sprintBacklogRepository.existsById(id)) {
-            throw new RuntimeException("SprintBacklog with id " + id + " not found");
+            throw new UserNotFoundException("SprintBacklog with id " + id + " not found");
         }
         sprintBacklogRepository.updateSprintBacklogName(id, newName);
     }

@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.SprintBacklogDTO;
+import com.example.agile.dto.SprintBacklogDTO;
 
 import java.util.List;
 import java.util.Optional;

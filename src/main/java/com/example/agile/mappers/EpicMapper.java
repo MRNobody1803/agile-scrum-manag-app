@@ -1,6 +1,6 @@
 package com.example.agile.mappers;
 
-import com.example.agile.DTO.EpicDTO;
+import com.example.agile.dto.EpicDTO;
 import com.example.agile.entities.Epic;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

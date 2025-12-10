@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.SprintBacklogDTO;
+import com.example.agile.dto.SprintBacklogDTO;
 import com.example.agile.entities.SprintBacklog;
 import com.example.agile.mappers.SprintBacklogMapper;
 import com.example.agile.repository.SprintBacklogRepository;

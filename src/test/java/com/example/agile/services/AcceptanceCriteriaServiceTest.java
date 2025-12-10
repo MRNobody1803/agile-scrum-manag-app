@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.AcceptanceCriteriaDTO;
+import com.example.agile.dto.AcceptanceCriteriaDTO;
 import com.example.agile.entities.AcceptanceCriteria;
 import com.example.agile.mappers.AcceptanceCriteriaMapper;
 import com.example.agile.repository.AcceptanceCriteriaRepository;

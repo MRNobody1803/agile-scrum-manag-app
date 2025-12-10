@@ -1,6 +1,6 @@
 package com.example.agile.mappers;
 
-import com.example.agile.DTO.TaskDTO;
+import com.example.agile.dto.TaskDTO;
 import com.example.agile.entities.Task;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

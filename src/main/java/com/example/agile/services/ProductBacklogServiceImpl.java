@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.ProductBacklogDTO;
+import com.example.agile.dto.ProductBacklogDTO;
 import com.example.agile.entities.ProductBacklog;
 import com.example.agile.mappers.ProductBacklogMapper;
 import com.example.agile.repository.ProductBacklogRepository;
@@ -15,8 +15,10 @@ import java.util.List;
 @Service
 public class ProductBacklogServiceImpl implements ProductBacklogService {
 
+    private static final String ID = "Product backlog with id: ";
+    private static final String NOT_FOUND = "not found";
     private final ProductBacklogRepository productBacklogRepository;
-    private final ProductBacklogMapper productBacklogMapper = ProductBacklogMapper.INSTANCE;
+    private static final ProductBacklogMapper productBacklogMapper = ProductBacklogMapper.INSTANCE;
 
     @Autowired
 
@@ -35,7 +37,7 @@ public class ProductBacklogServiceImpl implements ProductBacklogService {
     @Cacheable(value = "productBacklogs", key = "#id")
     public ProductBacklogDTO getProductBacklogById(long id) {
         ProductBacklog productBacklog = productBacklogRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product backlog with id: " + id + " not found"));
+                .orElseThrow(() -> new RuntimeException(ID + id + NOT_FOUND));
         return productBacklogMapper.toDTO(productBacklog);
     }
 
@@ -53,7 +55,7 @@ public class ProductBacklogServiceImpl implements ProductBacklogService {
     @CacheEvict(value = "productBacklogs", allEntries = true) // Clear cache after update
     public ProductBacklogDTO updateProductBacklog(long id, ProductBacklogDTO productBacklogDTO) {
         ProductBacklog productBacklog = productBacklogRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product backlog with id: " + id + " not found"));
+                .orElseThrow(() -> new RuntimeException(ID + id + NOT_FOUND));
         productBacklog.setName(productBacklogDTO.getName());
         ProductBacklog updatedProductBacklog = productBacklogRepository.save(productBacklog);
         return productBacklogMapper.toDTO(updatedProductBacklog);
@@ -63,8 +65,6 @@ public class ProductBacklogServiceImpl implements ProductBacklogService {
     @Transactional
     @CacheEvict(value = "productBacklogs", key = "#id")
     public boolean deleteProductBacklogById(long id) {
-        ProductBacklog productBacklog = productBacklogRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product backlog with id: " + id + " not found"));
         productBacklogRepository.deleteById(id);
         return true;
     }

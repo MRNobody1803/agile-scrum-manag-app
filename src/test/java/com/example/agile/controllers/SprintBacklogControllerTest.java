@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.SprintBacklogDTO;
+import com.example.agile.dto.SprintBacklogDTO;
 import com.example.agile.exceptions.GlobalExceptionHandler;
 import com.example.agile.services.SprintBacklogService;
 import com.fasterxml.jackson.databind.ObjectMapper;

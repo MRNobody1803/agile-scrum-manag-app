@@ -1,6 +1,6 @@
 package com.example.agile.mappers;
 
-import com.example.agile.DTO.ProductBacklogDTO;
+import com.example.agile.dto.ProductBacklogDTO;
 import com.example.agile.entities.ProductBacklog;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

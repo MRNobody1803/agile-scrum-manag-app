@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.UserStoryDTO;
+import com.example.agile.dto.UserStoryDTO;
 import com.example.agile.entities.Task;
 import com.example.agile.mappers.UserStoryMapper;
 import com.example.agile.services.UserStoryService;

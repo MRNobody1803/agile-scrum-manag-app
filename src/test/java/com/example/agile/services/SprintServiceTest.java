@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.SprintDTO;
+import com.example.agile.dto.SprintDTO;
 import com.example.agile.entities.Sprint;
 import com.example.agile.entities.Status;
 import com.example.agile.mappers.SprintMapper;

@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.TaskDTO;
+import com.example.agile.dto.TaskDTO;
 import com.example.agile.entities.Task;
 import com.example.agile.entities.UserStory;
 import com.example.agile.mappers.TaskMapper;

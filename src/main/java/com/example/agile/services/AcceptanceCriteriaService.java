@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.AcceptanceCriteriaDTO;
+import com.example.agile.dto.AcceptanceCriteriaDTO;
 import com.example.agile.entities.AcceptanceCriteria;
 
 import java.util.List;

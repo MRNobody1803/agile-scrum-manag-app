@@ -1,4 +1,4 @@
-package com.example.agile.DTO;
+package com.example.agile.dto;
 
 import lombok.Data;
 

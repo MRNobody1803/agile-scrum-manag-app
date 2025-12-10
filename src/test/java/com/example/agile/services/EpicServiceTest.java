@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.EpicDTO;
+import com.example.agile.dto.EpicDTO;
 import com.example.agile.entities.Epic;
 import com.example.agile.entities.ProductBacklog;
 import com.example.agile.exceptions.ResourceNotFoundException;

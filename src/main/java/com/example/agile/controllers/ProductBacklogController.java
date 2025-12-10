@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.ProductBacklogDTO;
+import com.example.agile.dto.ProductBacklogDTO;
 import com.example.agile.services.ProductBacklogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

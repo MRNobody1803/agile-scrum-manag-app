@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.EpicDTO;
+import com.example.agile.dto.EpicDTO;
 import com.example.agile.services.EpicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

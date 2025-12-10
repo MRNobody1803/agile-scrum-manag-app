@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.EpicDTO;
+import com.example.agile.dto.EpicDTO;
 import com.example.agile.entities.Epic;
 import com.example.agile.entities.ProductBacklog;
 import com.example.agile.exceptions.ResourceNotFoundException;
@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class EpicServiceImpl implements EpicService {
 
+    private static final String NOT_FOUND = "Epic not found";
     private final EpicRepository epicRepository;
     private final ProductBacklogRepository productBacklogRepository;
     private final EpicMapper epicMapper ;
@@ -45,7 +46,7 @@ public class EpicServiceImpl implements EpicService {
     @CacheEvict(value = "epics", key = "#id")
     public EpicDTO updateEpic(Long id, EpicDTO epicDTO) {
         Epic existingEpic = epicRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Epic not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND));
 
         existingEpic.setName(epicDTO.getName());
         existingEpic.setDescription(epicDTO.getDescription());
@@ -64,7 +65,7 @@ public class EpicServiceImpl implements EpicService {
     @CacheEvict(value = "epics", allEntries = true)
     public boolean deleteEpic(Long id) {
         Epic epic = epicRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Epic not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND));
 
         if (!epic.getUserStories().isEmpty()) {
             throw new IllegalStateException("Cannot delete Epic with existing User Stories");
@@ -78,7 +79,7 @@ public class EpicServiceImpl implements EpicService {
     @Cacheable("epics")
     public EpicDTO getEpicById(Long id) {
         Epic epic = epicRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Epic not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND));
         return epicMapper.toDTO(epic);
     }
 

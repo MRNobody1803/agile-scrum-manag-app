@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.SprintDTO;
+import com.example.agile.dto.SprintDTO;
 import com.example.agile.services.SprintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

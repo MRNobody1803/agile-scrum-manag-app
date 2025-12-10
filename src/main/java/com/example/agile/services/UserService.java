@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.UserDTO;
+import com.example.agile.dto.UserDTO;
 
 import java.util.List;
 import java.util.Optional;

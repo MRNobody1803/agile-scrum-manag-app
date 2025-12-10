@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.EpicDTO;
+import com.example.agile.dto.EpicDTO;
 import java.util.List;
 
 public interface EpicService {

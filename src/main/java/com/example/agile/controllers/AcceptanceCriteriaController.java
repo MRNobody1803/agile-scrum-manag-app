@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.AcceptanceCriteriaDTO;
+import com.example.agile.dto.AcceptanceCriteriaDTO;
 import com.example.agile.entities.AcceptanceCriteria;
 import com.example.agile.services.AcceptanceCriteriaService;
 import org.springframework.http.HttpStatus;

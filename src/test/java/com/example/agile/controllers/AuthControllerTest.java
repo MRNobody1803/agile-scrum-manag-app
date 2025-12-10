@@ -1,7 +1,7 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.AuthRequest;
-import com.example.agile.DTO.RegisterRequest;
+import com.example.agile.dto.AuthRequest;
+import com.example.agile.dto.RegisterRequest;
 import com.example.agile.config.JwtService;
 import com.example.agile.entities.RoleType;
 import com.example.agile.entities.User;

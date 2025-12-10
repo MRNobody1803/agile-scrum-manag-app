@@ -1,7 +1,8 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.AcceptanceCriteriaDTO;
+import com.example.agile.dto.AcceptanceCriteriaDTO;
 import com.example.agile.entities.AcceptanceCriteria;
+import com.example.agile.exceptions.UserNotFoundException;
 import com.example.agile.mappers.AcceptanceCriteriaMapper;
 import com.example.agile.repository.AcceptanceCriteriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class AcceptanceCriteriaServiceImpl implements AcceptanceCriteriaService 
     @Override
     public AcceptanceCriteriaDTO updateAcceptanceCriteria(Long id, AcceptanceCriteria acceptanceCriteria) {
         if (!acceptanceCriteriaRepository.existsById(id)) {
-            throw new RuntimeException("AcceptanceCriteria not found with id " + id);
+            throw new UserNotFoundException("AcceptanceCriteria not found with id " + id);
         }
         acceptanceCriteria.setId(id);
         AcceptanceCriteria updatedAcceptanceCriteria = acceptanceCriteriaRepository.save(acceptanceCriteria);
@@ -56,7 +57,7 @@ public class AcceptanceCriteriaServiceImpl implements AcceptanceCriteriaService 
     @Override
     public boolean deleteAcceptanceCriteria(Long id) {
         if (!acceptanceCriteriaRepository.existsById(id)) {
-            throw new RuntimeException("AcceptanceCriteria not found with id " + id);
+            throw new UserNotFoundException("AcceptanceCriteria not found with id " + id);
         }
         acceptanceCriteriaRepository.deleteById(id);
         return false;

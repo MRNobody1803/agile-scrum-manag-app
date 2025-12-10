@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.EpicDTO;
+import com.example.agile.dto.EpicDTO;
 import com.example.agile.exceptions.GlobalExceptionHandler;
 import com.example.agile.services.EpicService;
 import com.fasterxml.jackson.databind.ObjectMapper;

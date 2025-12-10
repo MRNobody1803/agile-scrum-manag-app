@@ -1,13 +1,14 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.UserDTO;
+import com.example.agile.dto.UserDTO;
 import com.example.agile.entities.User;
 import com.example.agile.exceptions.UserNotFoundException;
 import com.example.agile.mappers.UserMapper;
 import com.example.agile.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,8 +16,9 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
-    private final UserMapper userMapper = UserMapper.INSTANCE; // Utilisation du UserMapper
+    private static final UserMapper userMapper = UserMapper.INSTANCE; // Utilisation du UserMapper
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -26,11 +28,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO registerUser(UserDTO userDTO) {
         if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
-            throw new RuntimeException("Username already exists.");
+            throw new UserNotFoundException("Username already exists.");
         }
 
         if (userRepository.findByEmail(userDTO.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already in use.");
+            throw new UserNotFoundException("Email already in use.");
         }
 
         // Créer un utilisateur sans encoder le mot de passe
@@ -51,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
         // Comparaison simple des mots de passe sans hashage
         if (!password.equals(user.getPassword())) {
-            throw new RuntimeException("Invalid username or password.");
+            throw new UserNotFoundException("Invalid username or password.");
         }
 
         // Mapper l'utilisateur en UserDTO sans le mot de passe
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logoutUser(UserDTO userDTO) {
-        System.out.println("User " + userDTO.getUsername() + " logged out successfully.");
+        logger.info("User {} logged out successfully.", userDTO.getUsername());
     }
 
     @Override

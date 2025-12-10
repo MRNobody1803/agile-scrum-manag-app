@@ -1,6 +1,6 @@
 package com.example.agile.mappers;
 
-import com.example.agile.DTO.UserDTO;
+import com.example.agile.dto.UserDTO;
 import com.example.agile.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

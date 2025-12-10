@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.UserStoryDTO;
+import com.example.agile.dto.UserStoryDTO;
 import com.example.agile.entities.*;
 import com.example.agile.exceptions.ResourceNotFoundException;
 import com.example.agile.mappers.UserStoryMapper;

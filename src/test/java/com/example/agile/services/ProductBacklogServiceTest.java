@@ -1,6 +1,6 @@
 package com.example.agile.services;
 
-import com.example.agile.DTO.ProductBacklogDTO;
+import com.example.agile.dto.ProductBacklogDTO;
 import com.example.agile.entities.ProductBacklog;
 import com.example.agile.repository.ProductBacklogRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -98,7 +98,6 @@ class ProductBacklogServiceTest {
 
     @Test
     void testDeleteProductBacklogById() {
-        when(productBacklogRepository.findById(1L)).thenReturn(Optional.of(productBacklog));
         doNothing().when(productBacklogRepository).deleteById(1L);
 
         boolean result = productBacklogService.deleteProductBacklogById(1L);
@@ -106,4 +105,5 @@ class ProductBacklogServiceTest {
         assertTrue(result);
         verify(productBacklogRepository, times(1)).deleteById(1L);
     }
+
 }

@@ -1,6 +1,6 @@
 package com.example.agile.mappers;
 
-import com.example.agile.DTO.SprintDTO;
+import com.example.agile.dto.SprintDTO;
 import com.example.agile.entities.Sprint;
 import org.mapstruct.Mapper;
 

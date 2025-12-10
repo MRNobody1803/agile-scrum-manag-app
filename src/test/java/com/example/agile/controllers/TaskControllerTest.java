@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.TaskDTO;
+import com.example.agile.dto.TaskDTO;
 import com.example.agile.entities.Status;
 import com.example.agile.exceptions.GlobalExceptionHandler;
 import com.example.agile.services.TaskService;

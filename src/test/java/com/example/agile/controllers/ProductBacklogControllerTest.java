@@ -1,6 +1,6 @@
 package com.example.agile.controllers;
 
-import com.example.agile.DTO.ProductBacklogDTO;
+import com.example.agile.dto.ProductBacklogDTO;
 import com.example.agile.entities.Priority;
 import com.example.agile.entities.Status;
 import com.example.agile.exceptions.GlobalExceptionHandler;
